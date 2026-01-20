@@ -40,7 +40,6 @@ bool toCheckPrimeNumber(float arr[], int n) {
             }
         }
     }
-    // No prime numbers were found.
     return false;
 }
 
