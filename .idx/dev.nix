@@ -5,6 +5,11 @@
   channel = "stable-24.05"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
   packages = [
+    pkgs.clang
+    pkgs.gdb
+    pkgs.cmake
+    pkgs.openssh
+    pkgs.gnupg
     # pkgs.go
     # pkgs.python311
     # pkgs.python311Packages.pip
@@ -16,6 +21,7 @@
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
+      "vscode.cpptools"
       # "vscodevim.vim"
       "google.gemini-cli-vscode-ide-companion"
     ];
