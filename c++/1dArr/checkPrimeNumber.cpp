@@ -35,7 +35,6 @@ bool toCheckPrimeNumber(float arr[], int n) {
         int num = (int)arr[i]; 
         if (num == arr[i]) { 
             if (isPrime(num)) {
-                // Found a prime, no need to check further.
                 return true;
             }
         }
