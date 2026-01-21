@@ -3,7 +3,7 @@ using namespace std;
 float newArr[10];
 int m = 0;
 // Checks if a value already exists in the simplified array
-bool toDuplicate(float arr[], int n, float checkValue) {
+bool isDuplicate(float arr[], int n, float checkValue) {
     for(int i = 0; i < n; i++) {
         if(arr[i] == checkValue) {
             return true;
