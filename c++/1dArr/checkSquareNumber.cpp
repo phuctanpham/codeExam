@@ -10,6 +10,8 @@ input:
 output:
     + return true if at least one square number is found
 **/
+book is 
+
 bool toCheckSquareNumber(float arr[], int n)
 {
     for(int i = 0; i < n; i++){
