@@ -7,6 +7,7 @@
   packages = [
     pkgs.clang
     pkgs.gdb
+    pkgs.gcc 
     pkgs.cmake
     pkgs.openssh
     pkgs.gnupg
