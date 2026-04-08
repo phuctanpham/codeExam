@@ -4,6 +4,47 @@ id: 25730134
 dob: 240290
 class: IT003.F21.CN1.CNTT
 */
+/*
+Thuật toán tìm kiếm tuyến tính là một trong những thuật toán tìm kiếm đơn giản và dễ dàng cài đặt nhất. Ý tưởng của thuật toán là: với một mảng cho trước có N phần tử và phần tử cần tìm x, duyệt từ đầu mảng đến cuối mảng cho đến khi tìm được phần tử x.
+Yêu cầu: Hãy cài đặt thuật toán tìm kiếm tuyến tính để tìm vị trí của x đầu tiên trong mảng có N phần tử và đếm số lần duyệt qua các phần tử.
+Input:
+ - Dòng đầu tiên là số nguyên N dương (0 < N < 10000)
+ - Dòng tiếp theo chứa N số nguyên Ai là các phần tử của mảng
+ - Dòng cuối cùng là số nguyên x cần tìm
+Output:
+ - Dòng đầu tiên là vị trí của x đầu tiên trong mảng nếu tìm được. Nếu không tìm thấy thì xuất ra -1
+ - Số lần duyệt qua các phần tử của mảng (từ đầu mảng đến cuối) để tìm được x
+ - Dòng thứ ba là vị trí của x đầu tiên trong mảng (đếm từ cuối đến đầu) nếu tìm được. Nếu không tìm thấy thì xuất ra -1
+ - Số lần duyệt qua các phần tử của mảng (từ cuối mảng đến đầu) để tìm được x
+ - Nếu như ở 2 dòng đầu tiên mà không tìm thấy thì không cần xuất ra 2 dòng tiếp theo
+Ví dụ:
+ - Ví dụ 1:
+    - Input:
+        - 5                                                  
+        - 1 -4 3 2 6
+        - -4
+    - Output:
+        - 1
+        - 2
+        - 3
+        - 4
+ - Ví dụ 2:
+    - Input:
+        - 4
+        - 1 2 3 4
+        - -9
+    - Output:
+        - -1
+Giả thích:
+    - Ví dụ 1:
+         - 4 ở vị trí 1 tính từ đầu mảng
+         - phải duyệt qua 2 lần để tìm được -4
+         - -4 ở vị trí 3 tính từ cuối mảng
+         - phải duyệt qua 4 lần từ cuối mảng để tìm được -4
+    - Ví dụ 2:
+            - Không có phần tử -9 trong mảng
+ */
+
 //header
 #include <iostream>
 using namespace std;
