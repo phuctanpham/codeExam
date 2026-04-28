@@ -4,8 +4,8 @@ dob: 240290
 class: IT002.F21.CN1.CNTT
 */
 
-#ifndef CCOMPLEXNUMBER_H
-#define CCOMPLEXNUMBER_H
+#ifndef CCOMPLEXES_H
+#define CCOMPLEXES_H
 
 #include <iostream>
 #include <string>

@@ -3,7 +3,7 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cComplexNumber.h"
+#include "cComplexes.h"
 
 cComplex cComplex::operator/(const cComplex& other) const {
     float mau_chung = other.thuc * other.thuc + other.ao * other.ao;

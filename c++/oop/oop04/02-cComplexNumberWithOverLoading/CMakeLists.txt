@@ -3,7 +3,7 @@
 # dob: 240290
 # class: IT002.F21.CN1.CNTT
 cmake_minimum_required(VERSION 3.10)
-project(cComplexNumber)
+project(cComplexes)
 
 set(CMAKE_CXX_STANDARD 17)
 

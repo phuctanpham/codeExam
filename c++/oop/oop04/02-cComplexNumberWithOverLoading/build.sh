@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================
-# build.sh - Script tu dong build cComplexNumber
+# build.sh - Script tu dong build cComplexes
 # name: Pham Tan Phuc
 # id: 25730134
 # dob: 240290
