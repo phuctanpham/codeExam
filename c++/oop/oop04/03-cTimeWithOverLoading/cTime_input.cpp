@@ -3,11 +3,17 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cTime.h"
+#include "cTimes.h"
 
+// [SUA] Bo sung 2 viec:
+//  1. Hien thi huong dan vi du ngay tu lan nhap dau tien (khong chi khi nhap sai)
+//  2. Kiem tra pham vi hop le: gio 0-23, phut 0-59, giay 0-59
+//     Truoc day chi kiem tra >= 0, nen nhap "25 70 80" van duoc chap nhan
 istream& operator>>(istream& is, CTime& t) {
     string line;
     while (true) {
+        cout << "  (Vi du: 10 30 45 la thoi diem 10:30:45 | gio: 0-23, phut: 0-59, giay: 0-59)" << endl;
+        cout << "  >> ";
         if (!getline(is, line)) break;
         if (line.empty()) continue;
 
@@ -15,19 +21,25 @@ istream& operator>>(istream& is, CTime& t) {
         int h, m, s;
         string extra;
 
-        if (ss >> h >> m >> s && !(ss >> extra)) {
-            if (h >= 0 && m >= 0 && s >= 0) {
-                t.gio = h;
-                t.phut = m;
-                t.giay = s;
-                t.chuanHoa();
-                break;
-            } else {
-                cout << "Loi: Thoi gian khong duoc chua so am. Vui long nhap lai (hh mm ss): ";
-                continue;
-            }
+        if (!(ss >> h >> m >> s) || (ss >> extra)) {
+            cout << "  Loi: Phai nhap dung 3 so nguyen cach nhau khoang trang. Vui long nhap lai." << endl;
+            continue;
         }
-        cout << "Loi: Nhap sai dinh dang. Vui long nhap dung 3 so (hh mm ss): ";
+        if (h < 0 || h > 23) {
+            cout << "  Loi: Gio phai trong khoang 0-23. Vui long nhap lai." << endl;
+            continue;
+        }
+        if (m < 0 || m > 59) {
+            cout << "  Loi: Phut phai trong khoang 0-59. Vui long nhap lai." << endl;
+            continue;
+        }
+        if (s < 0 || s > 59) {
+            cout << "  Loi: Giay phai trong khoang 0-59. Vui long nhap lai." << endl;
+            continue;
+        }
+        t.gio = h; t.phut = m; t.giay = s;
+        t.chuanHoa();
+        break;
     }
     return is;
 }

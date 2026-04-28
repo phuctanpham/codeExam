@@ -3,7 +3,7 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cTime.h"
+#include "cTimes.h"
 
 CTime::CTime(int h, int m, int s) {
     gio = h;
