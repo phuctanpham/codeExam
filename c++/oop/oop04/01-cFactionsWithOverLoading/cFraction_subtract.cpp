@@ -6,8 +6,9 @@ class: IT002.F21.CN1.CNTT
 #include "cFractions.h"
 
 // OVERLOADING toán tử - trừ 2 phân số
-cFraction cFraction::operator-(const cFraction& other) {
+// [SỬA] Thêm 'const' ở cuối hàm: phép trừ không thay đổi đối tượng đang gọi
+cFraction cFraction::operator-(const cFraction& other) const {
     int t = tu * other.mau - other.tu * mau;
     int m = mau * other.mau;
-    return cFraction(t, m);
+    return cFraction(t, m); // Constructor sẽ tự động rút gọn
 }

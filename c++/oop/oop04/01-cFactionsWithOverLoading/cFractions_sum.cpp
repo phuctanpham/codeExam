@@ -5,7 +5,8 @@ class: IT002.F21.CN1.CNTT
 */
 #include "cFractions.h"
 
-cFraction cFractions::sum() {
+// [SỬA] Thêm 'const': hàm sum() chỉ đọc mảng, không thay đổi dữ liệu
+cFraction cFractions::sum() const {
     cFraction total(0, 1);
     for (int i = 0; i < n; ++i) {
         total = total + arr[i]; // Tận dụng OVERLOADING +

@@ -6,6 +6,7 @@ class: IT002.F21.CN1.CNTT
 #include "cFractions.h"
 
 // OVERLOADING toán tử * nhân 2 phân số
-cFraction cFraction::operator*(const cFraction& other) {
+// [SỬA] Thêm 'const' ở cuối hàm: phép nhân không thay đổi đối tượng đang gọi
+cFraction cFraction::operator*(const cFraction& other) const {
     return cFraction(tu * other.tu, mau * other.mau);
 }

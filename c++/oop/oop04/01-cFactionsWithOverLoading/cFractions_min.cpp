@@ -5,7 +5,8 @@ class: IT002.F21.CN1.CNTT
 */
 #include "cFractions.h"
 
-cFraction cFractions::min() {
+// [SỬA] Thêm 'const': hàm min() chỉ đọc mảng, không thay đổi dữ liệu
+cFraction cFractions::min() const {
     if (n == 0) return cFraction(0, 1);
     cFraction minValue = arr[0];
     for (int i = 1; i < n; ++i) {
