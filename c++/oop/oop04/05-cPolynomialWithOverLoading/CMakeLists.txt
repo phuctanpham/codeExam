@@ -12,6 +12,7 @@ add_executable(poly_app
     # --- Cac file cua lop cPolynomial ---
     cPolynomial_constructor.cpp
     cPolynomial_destructor.cpp
+    cPolynomial_normalize.cpp
     cPolynomial_assign.cpp
     cPolynomial_input.cpp
     cPolynomial_output.cpp

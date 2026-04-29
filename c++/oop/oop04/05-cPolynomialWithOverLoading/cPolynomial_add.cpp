@@ -8,14 +8,16 @@ class: IT002.F21.CN1.CNTT
 cPolynomial cPolynomial::operator+(const cPolynomial& other) const {
     int maxBac = (bac > other.bac) ? bac : other.bac;
     cPolynomial res(maxBac);
-    
+
     for (int i = 0; i <= maxBac; ++i) {
-        double heSo1 = (i <= bac) ? heSo[i] : 0.0;
-        double heSo2 = (i <= other.bac) ? other.heSo[i] : 0.0;
-        res.heSo[i] = heSo1 + heSo2;
+        double h1 = (i <= bac)       ? heSo[i]       : 0.0;
+        double h2 = (i <= other.bac) ? other.heSo[i] : 0.0;
+        res.heSo[i] = h1 + h2;
     }
-    
-    // Luu y: Theo ly thuyet nen "chuan hoa" giam bac neu he so bac cao nhat = 0
-    // nhung de giu hieu suat on dinh va chong memory leak thi cu giu dung maxBac
+
+    // [SUA] Goi normalize() sau phep cong de dieu chinh bac thuc su
+    // Vi du: (x^2+1) + (-x^2+2) = 3 → bac phai la 0, khong phai 2
+    // Neu khong chuan hoa, so sanh > / < se cho ket qua sai
+    res.normalize();
     return res;
 }

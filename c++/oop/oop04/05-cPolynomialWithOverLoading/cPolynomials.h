@@ -22,6 +22,11 @@ private:
     int bac;
     double* heSo; // Mang dong luu he so tu bac 0 den bac n
 
+    // [THEM MOI] Ham chuan hoa: giam bac neu he so bac cao nhat bang 0
+    // Vi du: [3, 0, 0] bac=2 → [3] bac=0 (hang so 3, khong phai 0x^2 + 0x + 3)
+    // Can thiet sau phep cong/tru de bac noi bo khop voi bac toan hoc thuc su
+    void normalize();
+
 public:
     // Rule of Three
     cPolynomial(int b = 0);
