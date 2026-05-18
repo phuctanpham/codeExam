@@ -3,22 +3,22 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cSach_Sach.h"
+#include "cBook.h"
 #include <limits>
+#include <algorithm>
 
 // --- Base Class: Sach ---
 Sach::Sach() : maSach(""), ngayNhap(""), donGia(0.0), soLuong(0), nhaXuatBan("") {}
 
 void Sach::inputInfo(istream& in) {
-    cout << "Nhap Ma sach: "; getline(in, maSach);
-    cout << "Nhap Ngay nhap (dd/mm/yyyy): "; getline(in, ngayNhap);
-    cout << "Nhap Don gia: "; in >> donGia;
-    cout << "Nhap So luong: "; in >> soLuong;
+    cout << "Nhap Ma sach: ";                  getline(in, maSach);
+    cout << "Nhap Ngay nhap (dd/mm/yyyy): ";   getline(in, ngayNhap);
+    cout << "Nhap Don gia: ";                  in >> donGia;
+    cout << "Nhap So luong: ";                 in >> soLuong;
     in.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << "Nhap Nha xuat ban: "; getline(in, nhaXuatBan);
+    cout << "Nhap Nha xuat ban: ";             getline(in, nhaXuatBan);
 }
 
-// [Overloading] Stream extraction operator
 istream& operator>>(istream& in, Sach& s) {
     s.inputInfo(in);
     return in;
@@ -30,6 +30,8 @@ SachGiaoKhoa::SachGiaoKhoa() : Sach(), tinhTrang("") {}
 void SachGiaoKhoa::inputInfo(istream& in) {
     Sach::inputInfo(in);
     cout << "Nhap Tinh trang (moi/cu): "; getline(in, tinhTrang);
+    // Normalise to lowercase so comparisons in tinhThanhTien() are case-insensitive
+    transform(tinhTrang.begin(), tinhTrang.end(), tinhTrang.begin(), ::tolower);
 }
 
 // --- Derived Class: SachThamKhao ---

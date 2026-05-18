@@ -3,7 +3,7 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cBatDongSan_RealEstate.h"
+#include "cRealEstate.h"
 
 // --- Destructors ---
 GiaoDichBDS::~GiaoDichBDS() {}
@@ -12,62 +12,67 @@ GiaoDichNhaPho::~GiaoDichNhaPho() {}
 GiaoDichChungCu::~GiaoDichChungCu() {}
 
 // --- Getters / Setters ---
-double GiaoDichBDS::getDonGia() const { return donGia; }
-void GiaoDichBDS::setDonGia(double dGia) { donGia = dGia; }
-string GiaoDichBDS::getNgayGiaoDich() const { return ngayGiaoDich; }
+double GiaoDichBDS::getDonGia()              const { return donGia; }
+void   GiaoDichBDS::setDonGia(double dGia)         { donGia = dGia; }
+string GiaoDichBDS::getNgayGiaoDich()        const { return ngayGiaoDich; }
 
-// --- Base Class Output Logic ---
+// --- Base Class Output ---
 void GiaoDichBDS::displayInfo(ostream& out) const {
-    out << "Ma GD: " << maGiaoDich << " | Ngay: " << ngayGiaoDich 
-        << " | Dien tich: " << dienTich << " | Don gia: " << fixed << setprecision(0) << donGia;
+    out << "Ma GD: "      << maGiaoDich
+        << " | Ngay: "    << ngayGiaoDich
+        << " | Dien tich: " << dienTich
+        << " | Don gia: " << fixed << setprecision(0) << donGia;
 }
 
-// [Overloading] Stream insertion operator uses polymorphism
 ostream& operator<<(ostream& out, const GiaoDichBDS& bds) {
     bds.displayInfo(out);
     return out;
 }
 
-// --- Land Transaction Logic ---
+// --- Land Transaction ---
+// FIX: inputInfo normalises loaiDat to uppercase, so only one branch needed per value
 double GiaoDichDat::tinhThanhTien() const {
-    if (loaiDat == "A" || loaiDat == "a") {
-        return dienTich * donGia * 1.5; // [cite: 62]
-    }
-    return dienTich * donGia; // Type B or C [cite: 61]
+    if (loaiDat == "A")
+        return dienTich * donGia * 1.5;
+    return dienTich * donGia; // B or C
 }
 
 void GiaoDichDat::displayInfo(ostream& out) const {
-    out << "[GD DAT]     ";
+    out << "[GD DAT]      ";
     GiaoDichBDS::displayInfo(out);
-    out << " | Loai dat: " << loaiDat << " | Thanh tien: " << tinhThanhTien() << "\n";
+    out << " | Loai dat: " << loaiDat
+        << " | Thanh tien: " << fixed << setprecision(0) << tinhThanhTien() << "\n";
 }
 
-// --- Townhouse Transaction Logic ---
+// --- Townhouse Transaction ---
+// FIX: inputInfo normalises loaiNha to lowercase, so only one branch needed
 double GiaoDichNhaPho::tinhThanhTien() const {
-    if (loaiNha == "cao cap") {
-        return dienTich * donGia; // [cite: 64]
-    }
-    return dienTich * donGia * 0.9; // Type thuong gets 90% [cite: 65]
+    if (loaiNha == "cao cap")
+        return dienTich * donGia;
+    return dienTich * donGia * 0.9; // "thuong"
 }
 
 void GiaoDichNhaPho::displayInfo(ostream& out) const {
-    out << "[GD NHA PHO] ";
+    out << "[GD NHA PHO]  ";
     GiaoDichBDS::displayInfo(out);
-    out << " | Loai nha: " << loaiNha << " | Dia chi: " << diaChi << " | Thanh tien: " << tinhThanhTien() << "\n";
+    out << " | Loai nha: " << loaiNha
+        << " | Dia chi: "  << diaChi
+        << " | Thanh tien: " << fixed << setprecision(0) << tinhThanhTien() << "\n";
 }
 
-// --- Apartment Transaction Logic ---
+// --- Apartment Transaction ---
 double GiaoDichChungCu::tinhThanhTien() const {
-    if (viTriTang == 1) {
-        return dienTich * donGia * 2.0; // [cite: 67]
-    } else if (viTriTang >= 15) {
-        return dienTich * donGia * 1.2; // [cite: 68]
-    }
-    return dienTich * donGia; // Other floors [cite: 69]
+    if (viTriTang == 1)
+        return dienTich * donGia * 2.0;
+    if (viTriTang >= 15)
+        return dienTich * donGia * 1.2;
+    return dienTich * donGia;
 }
 
 void GiaoDichChungCu::displayInfo(ostream& out) const {
-    out << "[GD CHUNG CU]";
+    out << "[GD CHUNG CU] ";
     GiaoDichBDS::displayInfo(out);
-    out << " | Ma can: " << maCan << " | Tang: " << viTriTang << " | Thanh tien: " << tinhThanhTien() << "\n";
+    out << " | Ma can: "  << maCan
+        << " | Tang: "    << viTriTang
+        << " | Thanh tien: " << fixed << setprecision(0) << tinhThanhTien() << "\n";
 }

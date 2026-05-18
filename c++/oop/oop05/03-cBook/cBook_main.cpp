@@ -3,36 +3,43 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cSach_Sach.h"
+#include "cBook.h"
 #include <vector>
 
 int main() {
-    const int SO_LUONG_NHAP = 3; // Requirement: 3 of each type
+    const int SO_LUONG_NHAP = 3;
 
-    vector<SachGiaoKhoa> dsSGK(SO_LUONG_NHAP);
-    vector<SachThamKhao> dsSTK(SO_LUONG_NHAP);
+    vector<SachGiaoKhoa> dsSGK;
+    vector<SachThamKhao> dsSTK;
+    // FIX: reserve before push_back to prevent reallocation (consistent safe pattern)
+    dsSGK.reserve(SO_LUONG_NHAP);
+    dsSTK.reserve(SO_LUONG_NHAP);
 
-    double tongTienSGK = 0;
-    double tongTienSTK = 0;
-    double tongDonGiaSTK = 0;
+    double tongTienSGK    = 0.0;
+    double tongTienSTK    = 0.0;
+    double tongDonGiaSTK  = 0.0;
 
-    // 1. Nhap danh sach
+    // 1. Input
     cout << "=== NHAP DANH SACH SACH GIAO KHOA ===\n";
     for (int i = 0; i < SO_LUONG_NHAP; i++) {
         cout << "--- Quyen SGK thu " << i + 1 << " ---\n";
-        cin >> dsSGK[i];
-        tongTienSGK += dsSGK[i].tinhThanhTien();
+        SachGiaoKhoa s;
+        cin >> s;
+        tongTienSGK += s.tinhThanhTien();
+        dsSGK.push_back(s);
     }
 
     cout << "\n=== NHAP DANH SACH SACH THAM KHAO ===\n";
     for (int i = 0; i < SO_LUONG_NHAP; i++) {
         cout << "--- Quyen STK thu " << i + 1 << " ---\n";
-        cin >> dsSTK[i];
-        tongTienSTK += dsSTK[i].tinhThanhTien();
-        tongDonGiaSTK += dsSTK[i].getDonGia();
+        SachThamKhao s;
+        cin >> s;
+        tongTienSTK   += s.tinhThanhTien();
+        tongDonGiaSTK += s.getDonGia();
+        dsSTK.push_back(s);
     }
 
-    // 2. Xuat danh sach
+    // 2. Output
     cout << "\n===========================================\n";
     cout << "=== DANH SACH SACH GIAO KHOA ===\n";
     for (const auto& sgk : dsSGK) cout << sgk;
@@ -40,17 +47,16 @@ int main() {
     cout << "\n=== DANH SACH SACH THAM KHAO ===\n";
     for (const auto& stk : dsSTK) cout << stk;
 
-    // 3. Tong thanh tien
+    // 3. Totals
+    // FIX: use setprecision(2) for the average so decimal part is visible
+    double tbcDonGiaSTK = (SO_LUONG_NHAP > 0) ? (tongDonGiaSTK / SO_LUONG_NHAP) : 0.0;
     cout << "\n===========================================\n";
-    cout << "TONG THANH TIEN SACH GIAO KHOA: " << fixed << setprecision(0) << tongTienSGK << "\n";
-    cout << "TONG THANH TIEN SACH THAM KHAO: " << tongTienSTK << "\n";
-
-    // 4. Trung binh cong don gia sach tham khao
-    double tbcDonGiaSTK = (SO_LUONG_NHAP > 0) ? (tongDonGiaSTK / SO_LUONG_NHAP) : 0;
-    cout << "TRUNG BINH CONG DON GIA STK   : " << tbcDonGiaSTK << "\n";
+    cout << "TONG THANH TIEN SACH GIAO KHOA: " << fixed << setprecision(0) << tongTienSGK   << "\n";
+    cout << "TONG THANH TIEN SACH THAM KHAO: " << tongTienSTK   << "\n";
+    cout << "TRUNG BINH CONG DON GIA STK   : " << setprecision(2) << tbcDonGiaSTK << "\n";
     cout << "===========================================\n";
 
-    // 5. Xuat sach giao khoa cua nha xuat ban K
+    // 4. Search by publisher K
     string nxbTimKiem;
     cout << "\nNhap ten Nha xuat ban K can tim: ";
     getline(cin, nxbTimKiem);
@@ -63,9 +69,8 @@ int main() {
             found = true;
         }
     }
-    if (!found) {
+    if (!found)
         cout << "Khong tim thay sach cua nha xuat ban nay.\n";
-    }
 
     return 0;
 }

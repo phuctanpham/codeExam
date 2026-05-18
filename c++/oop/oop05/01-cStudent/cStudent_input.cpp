@@ -3,22 +3,27 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cStudents_student.h"
+#include "cStudent.h"   // FIX: was "cStudents_student.h" — wrong filename caused compile error
 #include <limits>
 
 // --- Base Class: SinhVien ---
-SinhVien::SinhVien() : mssv(""), hoTen(""), diaChi(""), tongTinChi(0), diemTrungBinh(0.0f) {}
+// NOTE: Providing a body for a pure virtual function is valid C++.
+// Derived classes call it explicitly via SinhVien::inputInfo(in).
+// The class remains abstract (cannot be instantiated directly).
+
+SinhVien::SinhVien()
+    : mssv(""), hoTen(""), diaChi(""), tongTinChi(0), diemTrungBinh(0.0f) {}
 
 void SinhVien::inputInfo(istream& in) {
-    cout << "Nhap MSSV: "; getline(in, mssv);
-    cout << "Nhap Ho ten: "; getline(in, hoTen);
-    cout << "Nhap Dia chi: "; getline(in, diaChi);
+    cout << "Nhap MSSV: ";         getline(in, mssv);
+    cout << "Nhap Ho ten: ";       getline(in, hoTen);
+    cout << "Nhap Dia chi: ";      getline(in, diaChi);
     cout << "Nhap Tong tin chi: "; in >> tongTinChi;
     cout << "Nhap Diem trung binh: "; in >> diemTrungBinh;
-    in.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear buffer
+    in.ignore(numeric_limits<streamsize>::max(), '\n'); // clear trailing newline
 }
 
-// [Overloading & Override] The >> operator is overloaded, but it relies on the overridden virtual inputInfo()
+// [Overloading + Polymorphism] operator>> delegates to the correct overridden inputInfo()
 istream& operator>>(istream& in, SinhVien& sv) {
     sv.inputInfo(in);
     return in;
@@ -28,7 +33,7 @@ istream& operator>>(istream& in, SinhVien& sv) {
 SinhVienCaoDang::SinhVienCaoDang() : SinhVien(), diemThiTotNghiep(0.0f) {}
 
 void SinhVienCaoDang::inputInfo(istream& in) {
-    SinhVien::inputInfo(in); // Reuse base class logic
+    SinhVien::inputInfo(in); // reuse base logic
     cout << "Nhap Diem thi tot nghiep: "; in >> diemThiTotNghiep;
     in.ignore(numeric_limits<streamsize>::max(), '\n');
 }

@@ -3,7 +3,7 @@ id: 25730134
 dob: 240290
 class: IT002.F21.CN1.CNTT
 */
-#include "cNhanVien_Employee.h"
+#include "cEmployee.h"
 
 // --- Destructors ---
 NhanVien::~NhanVien() {}
@@ -17,7 +17,7 @@ string NhanVien::getHoTen() const { return hoTen; }
 
 // --- Base Class Output Logic ---
 void NhanVien::displayInfo(ostream& out) const {
-    out << "Ho ten: " << hoTen << " | Ngay sinh: " << ngaySinh 
+    out << "Ho ten: " << hoTen << " | Ngay sinh: " << ngaySinh
         << " | Luong: " << fixed << setprecision(0) << luong;
 }
 
@@ -35,7 +35,8 @@ void NhanVienSanXuat::tinhLuong() {
 void NhanVienSanXuat::displayInfo(ostream& out) const {
     out << "[NV SAN XUAT]  ";
     NhanVien::displayInfo(out);
-    out << " | LCB: " << luongCanBan << " | So SP: " << soSanPham << "\n";
+    out << " | LCB: " << fixed << setprecision(0) << luongCanBan
+        << " | So SP: " << soSanPham << "\n";
 }
 
 // --- Office Employee Logic ---
